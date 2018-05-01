@@ -61,10 +61,33 @@ For example, if preferences are missing or invalid,
 the server could assume `text/turtle` and `en`;
 and missing authentication results in the `null` agent.
 
-Major parsing failures result in a `400` response
-with a detail of the cause.
-Examples include invalid HTTP methods,
-and syntactically incorrect, unparseable, or missing `PATCH` bodies.
+For major parsing failures, the server responds with:
+- `405` if the method is invalid
+- `413` if the body is too large
+- `415` when no body parser was found for a `PATCH` request
+- `400` in other cases
+
 When possible,
 the body of this response should respect
 the agent's representation preferences.
+
+## Step 3: Verify the agent's permissions
+The server passes the **authentication** and **target**
+to an authorization component,
+which returns the list of permissions for the agent on the given target.
+The server then validates that this list
+is a subset of the permissions required by operation's flags.
+
+If validation fails, the server responds with:
+- `401` if the agent did not authenticate (authentication is `null`)
+- `403` if the agent does not have the appropriate permissions
+- `404` if the server does not wish to disclose the existence of the resource
+
+When possible,
+the body of this response should respect
+the agent's representation preferences.
+In case of `401` and `403` responses,
+the body should include a link to authenticate.
+
+The authorization component might or might not be the component
+that provides access to the underlying data store.
