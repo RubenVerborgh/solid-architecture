@@ -37,7 +37,7 @@ are parsed into a structure consisting of the following components:
   Valid operations are
   `GET`, `HEAD`, `OPTIONS`, `POST`, `PUT`, `PATCH`, `DELETE`.
   Based on this method—and, in the case of `PATCH`, the parsed body—the
-  _read_, _delete_, and/or _append_ flags are assigned.
+  _read_, _append_, _write_, and/or _delete_ flags are assigned.
   They allows us to determine the required permissions in the next step
   (which is why we are parsing the body already at this stage).
 
@@ -91,3 +91,26 @@ the body should include a link to authenticate.
 
 The authorization component might or might not be the component
 that provides access to the underlying data store.
+
+## Step 4: Perform the modification
+This step is only executed
+when **operation** includes other flags than `read`.
+
+The server passes the **target**, **operation**, and **body**
+to the data storage component.
+This component will attempt to perform the modification.
+
+In case of a successful `PUT`, `PATCH`, or `DELETE`,
+the server responds with a `204`.
+
+If case of successful resource creation through `POST`,
+the newly created resource identifier is remembered.
+
+In case of failure, server responds with:
+- `404` if the resource does not exist (anymore)
+- `409` if the `PUT` or `PATCH` could not be performed
+- `500` in other cases
+
+When possible,
+the body of this response should respect
+the agent's representation preferences.
