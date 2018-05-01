@@ -73,7 +73,7 @@ the agent's representation preferences.
 
 ## Step 3: Verify the agent's permissions
 The server passes the **authentication** and **target**
-to an authorization component,
+to the authorization component,
 which returns the list of permissions for the agent on the given target.
 The server then validates that this list
 is a subset of the permissions required by operation's flags.
@@ -104,12 +104,33 @@ In case of a successful `PUT`, `PATCH`, or `DELETE`,
 the server responds with a `204`.
 
 If case of successful resource creation through `POST`,
-the newly created resource identifier is remembered.
+**resource** is set to the newly created resource identifier.
 
 In case of failure, server responds with:
 - `404` if the resource does not exist (anymore)
 - `409` if the `PUT` or `PATCH` could not be performed
 - `500` in other cases
+
+When possible,
+the body of this response should respect
+the agent's representation preferences.
+
+## Step 5: Return a representation
+In case of `POST`,
+the server passes **authentication** and **resource** 
+to the authorization component,
+and checks whether the returned list of permissions includes _read_.
+If not, the server returns `204`.
+
+In all other cases,
+the server sets **resource** to **target**.
+
+The server passes **resource** and **preferences** to the data store
+in order to retrieve metadata and a representation of the resource.
+
+The server responds with:
+- `200` if an adequate representation was found
+- `406` otherwise
 
 When possible,
 the body of this response should respect
