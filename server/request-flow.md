@@ -47,7 +47,7 @@ are parsed into a structure consisting of the following components:
   To determine this value from the request headers and/or client certificate,
   the server has access to a list of authenticators,
   such as WebID-TLS (which reads the WebID from a client certificate)
-  and OIDC (which reads the WebID based on a cookie).
+  and OIDC (which reads the WebID based on HTTP headers).
 
 - The **preferences** are a key/value object of categorized lists
   that indicate the agent's representation preferences,
