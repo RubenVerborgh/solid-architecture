@@ -142,15 +142,13 @@ Error reporting should always be as articulate as possile.
 Wherever there is information which will help the user, or the client, developer, or the server administrator,
 to understand what has happened, it should be shared with the client.
 
-Any unextcted runtime exception should be caught and will generally return a
+Any unexpected runtime exception should be caught and will generally return a
 
 - `500` status
 
-Possibly, There should be two modes as a function of the server configuration, in one of which 
-also icnluded with a 500 is a complete stack trace, so that in that the development team 
+Possibly, there should be two modes as a function of the server configuration, in one of which 
+also included with a 500 is a complete stack trace, so that the development team 
 get an accurate idea of what the new bug is.  
 
-Do not assume that users are not technical and so therefore should not be give technical details of an error.
-That detail they still find useful, in remembering similar errors, looking them up on the web, and sharing them with more technically minded people.
-
-
+Do not assume that users are not technical and therefore should not be given the technical details of an error.
+They may still find that information useful, e.g. in remembering similar errors, looking them up on the web, or sharing them with more technically minded people.
