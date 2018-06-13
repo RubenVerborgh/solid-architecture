@@ -1,5 +1,10 @@
 # Solid server: HTTP request handling flow
 
+This document specifies the flow for handling HTTP requests
+as we would want it in a future version of node-solid-server.
+It aims to minimize the knowledge each component needs,
+and to achieve a layered system.
+
 When an agent sends an HTTP request,
 the Solid server should take the following steps.
 
