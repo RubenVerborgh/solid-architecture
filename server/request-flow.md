@@ -1,4 +1,4 @@
-# Solid server: HTTP request handling flow
+# Node.js Solid server: HTTP request handling flow
 
 This document specifies the flow for handling HTTP requests
 as we would want it in a future version of node-solid-server.
