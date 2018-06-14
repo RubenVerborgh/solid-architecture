@@ -46,9 +46,9 @@ are parsed into a structure consisting of the following components:
   They allows us to determine the required permissions in the next step
   (which is why we are parsing the body already at this stage).
 
-- The **authentication** is a string
-  indicating the WebID of the logged-in agent,
-  or `null` if no agent is logged in.
+- The **credentials** are an object
+  with a WebID field indicating the URL of the logged-in agent,
+  which is empty if no agent is logged in.
   To determine this value from the request headers and/or client certificate,
   the server has access to a list of authenticators,
   such as WebID-TLS (which reads the WebID from a client certificate)
@@ -64,7 +64,7 @@ Minor parsing failures at this stage
 are automatically corrected through the insertion of defaults.
 For example, if preferences are missing or invalid,
 the server could assume `text/turtle` and `en`;
-and missing authentication results in the `null` agent.
+and missing authentication results in no WebID being set on the credentials.
 
 For major parsing failures, the server responds with:
 - `405` if the method is invalid
@@ -77,14 +77,14 @@ the body of this response should respect
 the agent's representation preferences.
 
 ## Step 3: Verify the agent's permissions
-The server passes the **authentication** and **target**
+The server passes the **credentials** and **target**
 to the authorization component,
 which returns the list of permissions for the agent on the given target.
 The server then validates that this list
 is a subset of the permissions required by operation's flags.
 
 If validation fails, the server responds with:
-- `401` if the agent did not authenticate (authentication is `null`)
+- `401` if the agent did not authenticate (no WebID set in credentials)
 - `403` if the agent does not have the appropriate permissions
 - `404` if the server does not wish to disclose the existence of the resource
 
@@ -122,7 +122,7 @@ the agent's representation preferences.
 
 ## Step 5: Return a representation
 In case of `POST`,
-the server passes **authentication** and **resource** 
+the server passes **credentials** and **resource** 
 to the authorization component,
 and checks whether the returned list of permissions includes _read_.
 If not, the server returns `204`.
