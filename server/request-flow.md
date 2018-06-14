@@ -41,7 +41,7 @@ are parsed into a structure consisting of the following components:
   They allows us to determine the required permissions in the next step
   (which is why we are parsing the body already at this stage).
 
-- The **agentid** is a string
+- The **credentials.Webid** is a string
   indicating the WebID of the logged-in agent,
   or `null` if no agent is logged in.
   To determine this value from the request headers and/or client certificate,
@@ -72,14 +72,14 @@ the body of this response should respect
 the agent's representation preferences.
 
 ## Step 3: Verify the agent's permissions
-The server passes the **agentid** and **target**
+The server passes the **credentials.Webid** and **target**
 to the authorization component,
 which returns the list of permissions for the agent on the given target.
 The server then validates that this list
 is a subset of the permissions required by operation's flags.
 
 If validation fails, the server responds with:
-- `401` if the agent did not authenticate (agentid is `null`)
+- `401` if the agent did not authenticate (`credentials.Webid` is `null`)
 - `403` if the agent does not have the appropriate permissions
 - `404` if the server does not wish to disclose the existence of the resource
 
