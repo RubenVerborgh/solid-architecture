@@ -38,13 +38,14 @@ are parsed into a structure consisting of the following components:
   the object is considered a textual blob (if a charset was given),
   or a binary blob.
 
-- The **operation** consists of the HTTP method, and a set of flags.
-  Valid operations are
+- The **method** is the HTTP method (an uppercase string).
+  Valid options are
   `GET`, `HEAD`, `OPTIONS`, `POST`, `PUT`, `PATCH`, `DELETE`.
-  Based on this method—and, in the case of `PATCH`, the parsed body—the
-  _read_, _append_, _write_, and/or _delete_ flags are assigned.
-  They allows us to determine the required permissions in the next step
-  (which is why we are parsing the body already at this stage).
+
+- The **required permissions** are a set of flags
+  _read_, _append_, _write_, and _delete_.
+  They are set to _true_ or _false based on the method
+  (and, in the case of `PATCH`, the parsed body).
 
 - The **credentials** are an object
   with a WebID field indicating the URL of the logged-in agent,
@@ -81,7 +82,7 @@ The server passes the **credentials** and **target**
 to the authorization component,
 which returns the list of permissions for the agent on the given target.
 The server then validates that this list
-is a subset of the permissions required by operation's flags.
+is a subset of the **required permissions**.
 
 If validation fails, the server responds with:
 - `401` if the agent did not authenticate (no WebID set in credentials)
@@ -99,9 +100,9 @@ that provides access to the underlying data store.
 
 ## Step 4: Perform the modification
 This step is only executed
-when **operation** includes other flags than `read`.
+when **required permissions** includes other flags than `read`.
 
-The server passes the **target**, **operation**, and **body**
+The server passes the **target**, **method**, and **body**
 to the data storage component.
 This component will attempt to perform the modification.
 
@@ -124,7 +125,7 @@ the agent's representation preferences.
 In case of `POST`,
 the server passes **credentials** and **resource** 
 to the authorization component,
-and checks whether the returned list of permissions includes _read_.
+and checks whether the returned permissions include _read_.
 If not, the server returns `204`.
 
 In all other cases,
