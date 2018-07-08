@@ -101,7 +101,8 @@ that provides access to the underlying data store.
 
 ## Step 4: Perform the modification
 This step is only executed
-when **required permissions** includes other flags than `read`.
+when **required permissions** includes `append`
+(or `write`, which assumes `append`).
 
 The server passes the **target**, **method**, and **body**
 to the data storage component.
