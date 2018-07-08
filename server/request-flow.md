@@ -83,7 +83,7 @@ The server passes the **credentials** and **target**
 to the authorization component,
 which returns the list of permissions for the agent on the given target.
 The server then validates that this list
-is a subset of the **required permissions**.
+is a superset of the **required permissions**.
 
 If validation fails, the server responds with:
 - `401` if the agent did not authenticate (no WebID set in credentials)
