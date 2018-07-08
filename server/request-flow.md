@@ -46,6 +46,7 @@ are parsed into a structure consisting of the following components:
   _read_, _append_, _write_, and _delete_.
   They are set to _true_ or _false based on the method
   (and, in the case of `PATCH`, the parsed body).
+  If _write_ is set to _true_, so should _append_.
 
 - The **credentials** are an object
   with a WebID field indicating the URL of the logged-in agent,
