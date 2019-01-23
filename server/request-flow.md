@@ -114,7 +114,7 @@ If case of successful resource creation through `POST`,
 
 In case of failure, server responds with:
 - `404` if the resource does not exist (anymore)
-- `409` if the `PUT` or `PATCH` could not be performed
+- `409` if the `PATCH` operation could not be performed
 - `500` in other cases
 
 When possible,
