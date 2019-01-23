@@ -123,19 +123,14 @@ the body of this response should respect
 the agent's representation preferences.
 
 ## Step 5: Return a representation
-In case of `POST`,
-the server passes **credentials** and **resource** 
-to the authorization component,
-and checks whether the returned permissions include _read_.
-If not, the server returns `204`.
+In case of `POST`, the server responds with:
+- `201` and a `Location` header of **resource**.
 
-In all other cases,
-the server sets **resource** to **target**.
-
-The server passes **resource** and **preferences** to the data store
+The server passes **target** and **preferences** to the data store
 in order to retrieve metadata and a representation of the resource.
 
 The server responds with:
+- `205` if **method** is `PUT` or `PATCH`
 - `200` if an adequate representation was found
 - `406` otherwise
 
