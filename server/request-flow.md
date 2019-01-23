@@ -86,7 +86,7 @@ which determines whether the agent has sufficient permissions.
 If validation fails, the server responds with:
 - `401` if the agent did not authenticate (no WebID set in credentials)
 - `403` if the agent does not have the appropriate permissions
-- `404` if the server does not wish to disclose the existence of the resource
+- `404` if the server prefers not to disclose the existence of the resource
 
 When possible,
 the body of this response should respect
