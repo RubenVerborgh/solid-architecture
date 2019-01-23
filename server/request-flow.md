@@ -145,7 +145,7 @@ the agent's representation preferences.
 
 ## Returning error information
 
-Error reporting should always be as articulate as possile. 
+Error reporting should always be as articulate as possible. 
 Wherever there is information which will help the user, or the client, developer, or the server administrator,
 to understand what has happened, it should be shared with the client.
 
