@@ -79,11 +79,9 @@ the body of this response should respect
 the agent's representation preferences.
 
 ## Step 3: Verify the agent's permissions
-The server passes the **credentials** and **target**
+The server passes the **credentials**, **target**, and the **required permissions**
 to the authorization component,
-which returns the list of permissions for the agent on the given target.
-The server then validates that this list
-is a superset of the **required permissions**.
+which determines whether the agent has sufficient permissions.
 
 If validation fails, the server responds with:
 - `401` if the agent did not authenticate (no WebID set in credentials)
