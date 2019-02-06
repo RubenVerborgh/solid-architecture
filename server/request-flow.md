@@ -154,3 +154,7 @@ get an accurate idea of what the new bug is.
 
 Do not assume that users are not technical and therefore should not be given the technical details of an error.
 They may still find that information useful, e.g. in remembering similar errors, looking them up on the web, or sharing them with more technically minded people.
+
+We could for instance rely on [RFC7807](https://tools.ietf.org/html/rfc7807),
+possibly by adding a JSON-LD context to it,
+and providing this result in different formats through content negotiation.
